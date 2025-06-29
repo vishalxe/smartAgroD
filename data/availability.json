@@ -1,0 +1,29 @@
+[
+  {
+    "product": "Fresh Organic Tomatoes",
+    "available": true,
+    "quantity": 50,
+    "unit": "kg",
+    "lastUpdated": "2025-06-27T15:34:42.072Z",
+    "createdAt": "2025-06-27T15:34:42.129Z",
+    "updatedAt": "2025-06-27T15:34:42.129Z"
+  },
+  {
+    "product": "Organic Strawberries",
+    "available": true,
+    "quantity": 30,
+    "unit": "kg",
+    "lastUpdated": "2025-06-27T15:34:42.075Z",
+    "createdAt": "2025-06-27T15:34:42.130Z",
+    "updatedAt": "2025-06-27T15:34:42.130Z"
+  },
+  {
+    "product": "Fresh Farm Eggs",
+    "available": true,
+    "quantity": 25,
+    "unit": "dozen",
+    "lastUpdated": "2025-06-27T15:34:42.075Z",
+    "createdAt": "2025-06-27T15:34:42.131Z",
+    "updatedAt": "2025-06-27T15:34:42.132Z"
+  }
+]

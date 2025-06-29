@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1751038482119",
+    "uid": "user123",
+    "email": "user@example.com",
+    "name": "John User",
+    "role": "user",
+    "createdAt": "2025-06-27T15:34:42.119Z"
+  },
+  {
+    "id": "1751038482124",
+    "uid": "farmer123",
+    "email": "farmer@example.com",
+    "name": "Jane Farmer",
+    "role": "farmer",
+    "createdAt": "2025-06-27T15:34:42.124Z"
+  },
+  {
+    "id": "1751038482126",
+    "uid": "admin123",
+    "email": "admin@example.com",
+    "name": "Admin User",
+    "role": "admin",
+    "createdAt": "2025-06-27T15:34:42.126Z"
+  },
+  {
+    "id": "1751082627749",
+    "uid": "buyer_1751082627739",
+    "email": "buyer@demo.com",
+    "name": "John Buyer",
+    "role": "buyer",
+    "createdAt": "2025-06-28T03:50:27.749Z"
+  },
+  {
+    "id": "1751082717295",
+    "uid": "farmer_1751082717290",
+    "email": "farmer@demo.com",
+    "name": "John Farmer",
+    "role": "farmer",
+    "createdAt": "2025-06-28T03:51:57.295Z"
+  },
+  {
+    "id": "1751128722495",
+    "uid": "53LWmCsCnUSY3ZslCENquadJEr62",
+    "email": "swetha123@gmail.com",
+    "name": "swetha123",
+    "role": "user",
+    "createdAt": "2025-06-28T16:38:42.495Z"
+  },
+  {
+    "id": "1751129297374",
+    "uid": "7LK5dGhm54QK52GAwL9CXDbVLT43",
+    "email": "swethaf123@gmail.com",
+    "name": "swethaf123",
+    "role": "farmer",
+    "createdAt": "2025-06-28T16:48:17.374Z"
+  }
+]

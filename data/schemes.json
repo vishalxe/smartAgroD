@@ -1,0 +1,117 @@
+[
+  {
+    "id": "scheme_1",
+    "name": "PM-KISAN Scheme",
+    "description": "Direct income support of ₹6,000 per year to eligible farmer families",
+    "eligibility": [
+      "Small and marginal farmers",
+      "Landholding up to 2 hectares"
+    ],
+    "benefits": [
+      "₹6,000 per year in 3 installments",
+      "Direct bank transfer",
+      "No middlemen"
+    ],
+    "documents": [
+      "Aadhaar card",
+      "Land records",
+      "Bank account details"
+    ],
+    "status": "active",
+    "maxAmount": 6000,
+    "duration": "1 year",
+    "createdAt": "2025-06-28T03:49:19.269Z"
+  },
+  {
+    "id": "scheme_2",
+    "name": "PM Fasal Bima Yojana",
+    "description": "Crop insurance scheme to protect farmers against natural calamities",
+    "eligibility": [
+      "All farmers growing notified crops",
+      "Loanee and non-loanee farmers"
+    ],
+    "benefits": [
+      "Comprehensive crop insurance",
+      "Low premium rates",
+      "Quick claim settlement"
+    ],
+    "documents": [
+      "Land records",
+      "Crop details",
+      "Bank account details"
+    ],
+    "status": "active",
+    "maxAmount": 50000,
+    "duration": "Crop season",
+    "createdAt": "2025-06-28T03:49:19.270Z"
+  },
+  {
+    "id": "scheme_3",
+    "name": "Kisan Credit Card",
+    "description": "Easy credit facility for farmers to meet agricultural needs",
+    "eligibility": [
+      "Individual farmers",
+      "Joint borrowers",
+      "Tenant farmers"
+    ],
+    "benefits": [
+      "Flexible credit limit",
+      "Low interest rates",
+      "Easy repayment options"
+    ],
+    "documents": [
+      "Land records",
+      "Income certificate",
+      "Bank statements"
+    ],
+    "status": "active",
+    "maxAmount": 300000,
+    "duration": "5 years",
+    "createdAt": "2025-06-28T03:49:19.270Z"
+  },
+  {
+    "id": "scheme_4",
+    "name": "Soil Health Card Scheme",
+    "description": "Free soil testing and recommendations for farmers",
+    "eligibility": [
+      "All farmers",
+      "Landowners and tenants"
+    ],
+    "benefits": [
+      "Free soil testing",
+      "Nutrient recommendations",
+      "Crop-specific advice"
+    ],
+    "documents": [
+      "Land records",
+      "Aadhaar card"
+    ],
+    "status": "active",
+    "maxAmount": 0,
+    "duration": "Once every 3 years",
+    "createdAt": "2025-06-28T03:49:19.270Z"
+  },
+  {
+    "id": "scheme_5",
+    "name": "PMKSY - Micro Irrigation",
+    "description": "Subsidy for micro irrigation systems to save water",
+    "eligibility": [
+      "Small and marginal farmers",
+      "Water-scarce areas"
+    ],
+    "benefits": [
+      "Up to 55% subsidy",
+      "Water conservation",
+      "Increased productivity"
+    ],
+    "documents": [
+      "Land records",
+      "Water source details",
+      "Bank account"
+    ],
+    "status": "active",
+    "maxAmount": 50000,
+    "duration": "One-time",
+    "createdAt": "2025-06-28T03:49:19.270Z"
+  }
+]
