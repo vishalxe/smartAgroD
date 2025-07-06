@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - AGRO-SMART</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.8rem;
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-color);
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .featured-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .featured-text {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-category {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .btn-primary:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--light-bg);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--text-light);
+            border-radius: 50px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .btn-secondary {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 250px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 90, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chatbot-title h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            max-height: 300px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .message.user .message-avatar {
+            background: var(--primary-color);
+        }
+
+        .message-content {
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .welcome-message {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-container input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .voice-btn, .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .voice-btn.recording {
+            background: #ff4444;
+            color: var(--white);
+            animation: pulse 1s infinite;
+        }
+
+        .send-btn {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .voice-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-action-btn {
+            background: var(--light-bg);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -20px;
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+                <h2>AGRO-SMART</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/aboutus">About Us</a></li>
+                <li><a href="/blog">Blogs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">AGRO-SMART Blog</h1>
+            <p class="hero-subtitle">
+                Discover insights, tips, and stories about sustainable farming, 
+                fresh produce, and the future of agriculture
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Featured Post -->
+            <article class="featured-post">
+                <div class="featured-content">
+                    <div class="featured-image" style="background-image: url('/images/blog-1.jpg');"></div>
+                    <div class="featured-text">
+                        <span class="featured-category">Featured</span>
+                        <h2 class="featured-title">The Future of Sustainable Agriculture: How Technology is Revolutionizing Farming</h2>
+                        <p class="featured-excerpt">
+                            Discover how modern technology, from precision agriculture to AI-powered crop monitoring, 
+                            is transforming the way we grow food. Learn about the latest innovations that are making 
+                            farming more efficient, sustainable, and profitable for farmers worldwide.
+                        </p>
+                        <div class="featured-meta">
+                            <span><i class="ri-user-line"></i> By Sarah Johnson</span>
+                            <span><i class="ri-time-line"></i> March 15, 2024</span>
+                            <span><i class="ri-eye-line"></i> 2.5k views</span>
+                        </div>
+                        <a href="#" class="btn-primary">Read Full Article</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <!-- Blog Post 1 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog-2.jpg');">
+                        <span class="blog-category">Organic Farming</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">10 Essential Tips for Starting Your Organic Garden</h3>
+                        <p class="blog-excerpt">
+                            Learn the fundamentals of organic gardening, from soil preparation to natural pest control. 
+                            Perfect for beginners who want to grow their own fresh, chemical-free produce.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">MJ</div>
+                                <span>Mike Johnson</span>
+                            </div>
+                            <span>March 12, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog-3.jpg');">
+                        <span class="blog-category">Seasonal Guide</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Spring Planting Guide: What to Plant This Season</h3>
+                        <p class="blog-excerpt">
+                            Get ready for spring with our comprehensive planting guide. Discover which vegetables, 
+                            fruits, and herbs thrive in spring weather and how to care for them properly.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">ED</div>
+                                <span>Emily Davis</span>
+                            </div>
+                            <span>March 10, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog-4.png');">
+                        <span class="blog-category">Market Trends</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">The Rise of Farm-to-Table: Why Consumers Choose Local Produce</h3>
+                        <p class="blog-excerpt">
+                            Explore the growing trend of farm-to-table dining and why more consumers are choosing 
+                            locally sourced, fresh produce over supermarket alternatives.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">LC</div>
+                                <span>Lisa Chen</span>
+                            </div>
+                            <span>March 8, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 4 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog-5.jpg');">
+                        <span class="blog-category">Farming Tips</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Water Conservation Techniques for Sustainable Farming</h3>
+                        <p class="blog-excerpt">
+                            Learn about innovative water conservation methods that can help farmers reduce water usage 
+                            while maintaining crop yields and promoting environmental sustainability.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">RW</div>
+                                <span>Robert Wilson</span>
+                            </div>
+                            <span>March 5, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 5 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog-6.jpg');">
+                        <span class="blog-category">Health & Nutrition</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">The Health Benefits of Eating Seasonal Produce</h3>
+                        <p class="blog-excerpt">
+                            Discover why eating fruits and vegetables in their natural season provides maximum 
+                            nutritional benefits and how to incorporate seasonal eating into your diet.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">AM</div>
+                                <span>Anna Martinez</span>
+                            </div>
+                            <span>March 3, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 6 -->
+                <article class="blog-card">
+                    <div class="blog-image" style="background-image: url('/images/blog.jpg');">
+                        <span class="blog-category">Success Stories</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">From Small Farm to Successful Business: Farmer Success Stories</h3>
+                        <p class="blog-excerpt">
+                            Meet farmers who have transformed their small operations into thriving businesses 
+                            through innovation, hard work, and the support of platforms like AGRO-SMART.
+                        </p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">JS</div>
+                                <span>John Smith</span>
+                            </div>
+                            <span>March 1, 2024</span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <h2 class="newsletter-title">Stay Updated</h2>
+                <p class="newsletter-description">
+                    Subscribe to our newsletter for the latest farming tips, market insights, and sustainable 
+                    agriculture news delivered straight to your inbox.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-secondary">Subscribe</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">
+            <i class="ri-customer-service-2-line"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="ri-robot-line"></i>
+                    <h3>AGRO-SMART Assistant</h3>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be loaded here -->
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()">
+                        <i class="ri-mic-line" id="voiceIcon"></i>
+                    </button>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('Tell me about organic farming')">Organic Farming</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What are seasonal vegetables?')">Seasonal Guide</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I start farming?')">Start Farming</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize chatbot
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeChatbot();
+            initializeVoiceRecognition();
+        });
+
+        // Chatbot functionality
+        function initializeChatbot() {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const welcomeMessage = `
+                <div class="welcome-message">
+                    <h4>🌾 Welcome to AGRO-SMART Blog!</h4>
+                    <p>I'm your AI assistant. Ask me about farming tips, seasonal guides, or our platform.</p>
+                </div>
+            `;
+            messagesContainer.innerHTML = welcomeMessage;
+
+            setTimeout(() => {
+                addMessage('bot', 'Hello! I\'m here to help you with farming knowledge and AGRO-SMART information. How can I assist you today?');
+            }, 500);
+        }
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            const button = document.getElementById('chatbotButton');
+            
+            if (window.classList.contains('active')) {
+                window.classList.remove('active');
+                button.classList.remove('pulse');
+            } else {
+                window.classList.add('active');
+                button.classList.add('pulse');
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function addMessage(sender, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? 'U' : 'AI';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage('bot', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('bot', 'Sorry, I\'m having trouble connecting right now. Please try again later.');
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        async function getAIResponse(message) {
+            try {
+                const response = await fetch('/api/chatbot/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: 'blog'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    return data.response;
+                } else {
+                    // Return the specific error message from the backend
+                    return data.message || 'Failed to get response';
+                }
+            } catch (error) {
+                console.error('Chatbot API error:', error);
+                return 'Network error. Please check your connection and try again.';
+            }
+        }
+
+        // Voice recognition functionality
+        function initializeVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    stopRecording();
+                };
+                
+                recognition.onend = function() {
+                    stopRecording();
+                };
+            } else {
+                document.getElementById('voiceBtn').style.display = 'none';
+            }
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) return;
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) return;
+            
+            isRecording = true;
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceIcon').className = 'ri-stop-line';
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+            
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceIcon').className = 'ri-mic-line';
+            recognition.stop();
+        }
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Product</title>
+    <!-- Bootstrap CSS link (adjust path as necessary) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <div class="container mt-4">
+        <h1>Upload Product</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" class="form-control" id="productName" name="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="productCategory">Product Category</label>
+                <select class="form-select" id="productCategory" name="productCategory" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Grains">Grains</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Herbs">Herbs</option>
+                    <!-- Add more categories as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productUnit">Product Unit</label>
+                <input type="text" class="form-control" id="productUnit" name="productUnit" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+                <input type="file" class="form-control-file" id="productImage" name="image" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <textarea class="form-control" id="productDescription" name="productDescription" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Product Price</label>
+                <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        
+        <h2 class="mt-5">Product List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Unit</th> <!-- Added Unit column -->
+                    <th scope="col">Image</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productTable">
+                <!-- Products will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (adjust paths as necessary) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Product successfully uploaded');
+                // Clear the form fields
+                document.getElementById('uploadForm').reset();
+                fetchProducts(); // Refresh the product list
+            } else {
+                alert('Upload failed');
+            }
+        }
+
+        async function fetchProducts() {
+            const response = await fetch('/products');
+            const products = await response.json();
+            const productTable = document.getElementById('productTable');
+
+            productTable.innerHTML = ''; // Clear previous content
+
+            products.forEach(product => {
+                const row = `
+                    <tr>
+                        <td>${product.productName}</td>
+                        <td>${product.category}</td>
+                        <td>${product.unit}</td> <!-- Added Unit data -->
+                        <td><img src="${product.imageUrl}" alt="${product.productName}" style="width: 50px; height: 50px;"></td>
+                        <td>${product.description}</td>
+                        <td>₹${product.price.toFixed(2)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editProduct('${product._id}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="deleteProduct('${product._id}')"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `;
+                productTable.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        async function editProduct(productId) {
+            // Implement your edit product logic here
+            const newProductName = prompt('Enter new product name:');
+            const newProductDescription = prompt('Enter new product description:');
+            const newProductPrice = prompt('Enter new product price:');
+            const newProductCategory = prompt('Enter new product category:');
+            const newProductUnit = prompt('Enter new product unit:'); // Added prompt for unit
+
+            const response = await fetch(`/products/${productId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productName: newProductName,
+                    productDescription: newProductDescription,
+                    productPrice: newProductPrice,
+                    productCategory: newProductCategory,
+                    unit: newProductUnit, // Added unit in the request body
+                }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Product updated successfully');
+                fetchProducts(); // Refresh the product list
+            } else {
+                alert('Failed to update product');
+            }
+        }
+
+        async function deleteProduct(productId) {
+            // Implement your delete product logic here
+            const confirmDelete = confirm('Are you sure you want to delete this product?');
+            if (confirmDelete) {
+                const response = await fetch(`/delete/${productId}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Product deleted successfully');
+                    fetchProducts(); // Refresh products after deletion
+                } else {
+                    alert('Failed to delete product');
+                }
+            }
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', handleFormSubmit);
+        window.onload = fetchProducts;
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+
+</html>

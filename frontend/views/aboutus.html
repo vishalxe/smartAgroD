@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AGRO-SMART</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Mission Section */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .mission-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .mission-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .mission-description {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-item {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .value-description {
+            color: var(--text-light);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 4rem;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--light-bg);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .mission-grid,
+            .values-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 90, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chatbot-title h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            max-height: 300px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .message.user .message-avatar {
+            background: var(--primary-color);
+        }
+
+        .message-content {
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .welcome-message {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-container input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .voice-btn, .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .voice-btn.recording {
+            background: #ff4444;
+            color: var(--white);
+            animation: pulse 1s infinite;
+        }
+
+        .send-btn {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .voice-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-action-btn {
+            background: var(--light-bg);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -20px;
+            }
+        }
+
+        .contact-info a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+                <h2>AGRO-SMART</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/aboutus">About Us</a></li>
+                <li><a href="/blog">Blogs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">About AGRO-SMART</h1>
+            <p class="hero-subtitle">
+                We're revolutionizing the way consumers connect with farmers, bringing fresh, 
+                sustainable produce directly from farm to table while supporting local agriculture.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Mission Section -->
+            <section class="section">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-subtitle">
+                    We believe in creating a sustainable future by connecting consumers directly with farmers
+                </p>
+                
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">🌾</div>
+                        <h3 class="mission-title">Support Local Farmers</h3>
+                        <p class="mission-description">
+                            We provide a platform for local farmers to showcase their products directly to consumers, 
+                            eliminating middlemen and ensuring fair prices for both farmers and buyers.
+                        </p>
+                    </div>
+                    
+                    <div class="mission-card">
+                        <div class="mission-icon">🥬</div>
+                        <h3 class="mission-title">Fresh & Organic Produce</h3>
+                        <p class="mission-description">
+                            Every product on our platform is carefully selected for freshness and quality. 
+                            We promote organic farming practices and sustainable agriculture.
+                        </p>
+                    </div>
+                    
+                    <div class="mission-card">
+                        <div class="mission-icon">🌍</div>
+                        <h3 class="mission-title">Environmental Sustainability</h3>
+                        <p class="mission-description">
+                            By reducing food miles and promoting local agriculture, we contribute to 
+                            environmental conservation and reduce carbon footprint.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="section">
+                <h2 class="section-title">Our Values</h2>
+                <p class="section-subtitle">
+                    The principles that guide everything we do
+                </p>
+                
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">🤝</div>
+                        <h3 class="value-title">Trust & Transparency</h3>
+                        <p class="value-description">
+                            We believe in building trust through transparency in our operations, 
+                            product sourcing, and pricing.
+                        </p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">🌱</div>
+                        <h3 class="value-title">Sustainability</h3>
+                        <p class="value-description">
+                            We promote sustainable farming practices and environmentally 
+                            conscious consumption patterns.
+                        </p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">💚</div>
+                        <h3 class="value-title">Quality First</h3>
+                        <p class="value-description">
+                            Quality is non-negotiable. Every product meets our high standards 
+                            for freshness and safety.
+                        </p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">👥</div>
+                        <h3 class="value-title">Community</h3>
+                        <p class="value-description">
+                            We foster a strong community of farmers and consumers, 
+                            supporting local economies and relationships.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Happy Farmers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10,000+</div>
+                            <div class="stat-label">Satisfied Customers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50,000+</div>
+                            <div class="stat-label">Products Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Customer Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section class="section">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-subtitle">
+                    Meet the passionate people behind AGRO-SMART
+                </p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">👨‍💼</div>
+                        <div class="team-info">
+                            <h3 class="team-name">John Smith</h3>
+                            <p class="team-role">CEO & Founder</p>
+                            <p class="team-description">
+                                Passionate about sustainable agriculture and technology. 
+                                Leading the vision to revolutionize farm-to-table commerce.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">👩‍💻</div>
+                        <div class="team-info">
+                            <h3 class="team-name">Sarah Johnson</h3>
+                            <p class="team-role">CTO</p>
+                            <p class="team-description">
+                                Technology expert focused on building scalable solutions 
+                                that connect farmers and consumers seamlessly.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">👨‍🌾</div>
+                        <div class="team-info">
+                            <h3 class="team-name">Mike Chen</h3>
+                            <p class="team-role">Head of Agriculture</p>
+                            <p class="team-description">
+                                Agricultural expert with 15+ years of experience in 
+                                sustainable farming and supply chain management.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">👩‍🎨</div>
+                        <div class="team-info">
+                            <h3 class="team-name">Emily Davis</h3>
+                            <p class="team-role">Head of Design</p>
+                            <p class="team-description">
+                                Creative designer focused on creating intuitive and 
+                                beautiful user experiences for our platform.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2 class="cta-title">Join Our Mission</h2>
+                <p class="cta-description">
+                    Whether you're a farmer looking to reach more customers or a consumer 
+                    wanting fresh, local produce, we're here to help you succeed.
+                </p>
+                <a href="/login" class="btn-primary">Get Started Today</a>
+            </section>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">
+            <i class="ri-customer-service-2-line"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="ri-robot-line"></i>
+                    <h3>AGRO-SMART Assistant</h3>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be loaded here -->
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()">
+                        <i class="ri-mic-line" id="voiceIcon"></i>
+                    </button>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('Tell me about AGRO-SMART')">About Us</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I join as a farmer?')">Join as Farmer</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I start shopping?')">Start Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize chatbot
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeChatbot();
+            initializeVoiceRecognition();
+        });
+
+        // Chatbot functionality
+        function initializeChatbot() {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const welcomeMessage = `
+                <div class="welcome-message">
+                    <h4>🌾 Welcome to AGRO-SMART!</h4>
+                    <p>I'm your AI assistant. Ask me about our mission, how to join, or our platform features.</p>
+                </div>
+            `;
+            messagesContainer.innerHTML = welcomeMessage;
+
+            setTimeout(() => {
+                addMessage('bot', 'Hello! I\'m here to help you learn about AGRO-SMART and how we connect farmers with consumers. How can I assist you today?');
+            }, 500);
+        }
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            const button = document.getElementById('chatbotButton');
+            
+            if (window.classList.contains('active')) {
+                window.classList.remove('active');
+                button.classList.remove('pulse');
+            } else {
+                window.classList.add('active');
+                button.classList.add('pulse');
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function addMessage(sender, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? 'U' : 'AI';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage('bot', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('bot', 'Sorry, I\'m having trouble connecting right now. Please try again later.');
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        async function getAIResponse(message) {
+            try {
+                const response = await fetch('/api/chatbot/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: 'about-us'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    return data.response;
+                } else {
+                    // Return the specific error message from the backend
+                    return data.message || 'Failed to get response';
+                }
+            } catch (error) {
+                console.error('Chatbot API error:', error);
+                return 'Network error. Please check your connection and try again.';
+            }
+        }
+
+        // Voice recognition functionality
+        function initializeVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    stopRecording();
+                };
+                
+                recognition.onend = function() {
+                    stopRecording();
+                };
+            } else {
+                document.getElementById('voiceBtn').style.display = 'none';
+            }
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) return;
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) return;
+            
+            isRecording = true;
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceIcon').className = 'ri-stop-line';
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+            
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceIcon').className = 'ri-mic-line';
+            recognition.stop();
+        }
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html> 

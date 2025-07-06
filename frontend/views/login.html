@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRO-SMART - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <style>
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color), var(--accent-color));
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-section img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-bg);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 15px 10px;
+            border: 2px solid #e1e5e9;
+            background: var(--light-bg);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: center;
+            position: relative;
+        }
+
+        .role-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .role-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .role-btn i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 195, 74, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .demo-credentials {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        .demo-credentials h4 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .demo-credentials p {
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .demo-credentials strong {
+            color: var(--primary-color);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+        }
+
+        .register-link a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            color: var(--accent-color);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .role-selector {
+                flex-direction: column;
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+            <h1>AGRO-SMART</h1>
+            <p>Fresh from Farm to Table</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+
+            <div class="form-group">
+                <label>Select Your Role</label>
+                <div class="role-selector">
+                    <div class="role-btn" data-role="buyer">
+                        <i class="ri-shopping-cart-line"></i>
+                        Buyer
+                    </div>
+                    <div class="role-btn" data-role="farmer">
+                        <i class="ri-plant-line"></i>
+                        Farmer
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span id="btnText">Login</span>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                </div>
+            </button>
+        </form>
+
+        <div class="register-link">
+            <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration - will be loaded from backend
+        let firebaseConfig = null;
+        let auth = null;
+
+        // Load Firebase config from backend
+        async function initializeFirebase() {
+            try {
+                const response = await fetch('/api/auth/firebase-config');
+                const config = await response.json();
+                
+                if (config.success && config.config) {
+                    firebaseConfig = config.config;
+                    firebase.initializeApp(firebaseConfig);
+                    auth = firebase.auth();
+                    console.log('Firebase initialized successfully');
+                } else {
+                    console.error('Failed to load Firebase config');
+                    showError('Authentication service not available');
+                }
+            } catch (error) {
+                console.error('Error loading Firebase config:', error);
+                showError('Authentication service not available');
+            }
+        }
+
+        // Initialize Firebase on page load
+        initializeFirebase();
+
+        let selectedRole = 'buyer';
+
+        // Role selection
+        document.querySelectorAll('.role-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedRole = this.dataset.role;
+            });
+        });
+
+        // Set default role
+        document.querySelector('[data-role="buyer"]').classList.add('active');
+
+        // Form submission with Firebase authentication
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Show loading
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const loading = document.getElementById('loading');
+            
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            loading.style.display = 'block';
+
+            try {
+                // Firebase authentication
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Get ID token
+                const idToken = await user.getIdToken();
+                
+                // Send token to backend for verification and role assignment
+                const response = await fetch('/api/auth/firebase/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        idToken: idToken,
+                        role: selectedRole
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Login successful! Redirecting...');
+                    
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (selectedRole === 'farmer') {
+                            window.location.href = '/farmer-dashboard';
+                        } else if (selectedRole === 'buyer') {
+                            window.location.href = '/buyer-dashboard';
+                        } else {
+                            window.location.href = '/admin';
+                        }
+                    }, 1500);
+                } else {
+                    showError(data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Firebase auth error:', error);
+                let errorMessage = 'Login failed';
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No account found with this email';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many failed attempts. Please try again later';
+                        break;
+                    default:
+                        errorMessage = error.message || 'Authentication failed';
+                }
+                
+                showError(errorMessage);
+            } finally {
+                // Hide loading
+                submitBtn.disabled = false;
+                btnText.style.display = 'block';
+                loading.style.display = 'none';
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            // For now, just show a message
+            showError('Registration feature coming soon! Please contact support for account creation.');
+        }
+    </script>
+
+    <script>
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html>

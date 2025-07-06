@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard - AGRO-SMART</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: block;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-bg);
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-text h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Search and Filters */
+        .search-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            background: var(--white);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Products Grid */
+        .products-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem;
+            border: 2px solid #e1e5e9;
+            background: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .product-stock {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-add-cart:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+        }
+
+        .btn-wishlist {
+            background: transparent;
+            border: 2px solid #e1e5e9;
+            color: var(--text-light);
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-wishlist:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-wishlist.active {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .search-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input {
+                min-width: auto;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 90, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chatbot-title h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            max-height: 300px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .message.user .message-avatar {
+            background: var(--primary-color);
+        }
+
+        .message-content {
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .welcome-message {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-container input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .voice-btn, .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .voice-btn.recording {
+            background: #ff4444;
+            color: var(--white);
+            animation: pulse 1s infinite;
+        }
+
+        .send-btn {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .voice-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-action-btn {
+            background: var(--light-bg);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -20px;
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.jpg" alt="AGRO-SMART">
+                <h2>AGRO-SMART</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/agriproduct">Products</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/aboutus">About</a></li>
+                <li class="cart-icon" onclick="openCart()">
+                    <i class="ri-shopping-cart-line" style="font-size: 1.5rem;"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </li>
+                <li class="user-menu">
+                    <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar">
+                        B
+                    </div>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-user-line"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-shopping-bag-line"></i> My Orders
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-heart-line"></i> Wishlist
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="ri-settings-line"></i> Settings
+                        </a>
+                        <hr style="margin: 0.5rem 0;">
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="ri-logout-box-line"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="welcome-section">
+                    <div class="welcome-text">
+                        <h1>Welcome back, <span id="userName">Buyer</span>!</h1>
+                        <p>Discover fresh, organic products from local farmers</p>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" onclick="openCart()">
+                            <i class="ri-shopping-cart-line"></i> View Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalOrders">0</div>
+                        <div class="stat-label">Total Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="cartItems">0</div>
+                        <div class="stat-label">Cart Items</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="wishlistItems">0</div>
+                        <div class="stat-label">Wishlist</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalSpent">$0</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="search-section">
+                <div class="search-row">
+                    <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="dairy">Dairy</option>
+                        <option value="herbs">Herbs</option>
+                    </select>
+                    <select class="filter-select" id="priceFilter">
+                        <option value="">All Prices</option>
+                        <option value="0-5">Under $5</option>
+                        <option value="5-10">$5 - $10</option>
+                        <option value="10-20">$10 - $20</option>
+                        <option value="20+">Over $20</option>
+                    </select>
+                    <button class="search-btn" onclick="searchProducts()">
+                        <i class="ri-search-line"></i> Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">Fresh Products</h2>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setViewMode('grid')">
+                            <i class="ri-grid-line"></i>
+                        </button>
+                        <button class="view-btn" onclick="setViewMode('list')">
+                            <i class="ri-list-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here -->
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading products...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">
+            <i class="ri-customer-service-2-line"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="ri-robot-line"></i>
+                    <h3>AGRO-SMART Assistant</h3>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be loaded here -->
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()">
+                        <i class="ri-mic-line" id="voiceIcon"></i>
+                    </button>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('Show me fresh vegetables')">Fresh Vegetables</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What are today\'s deals?')">Today\'s Deals</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I place an order?')">How to Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let products = [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        let currentUser = null;
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadProducts();
+            updateCartCount();
+            updateStats();
+            initializeChatbot();
+            initializeVoiceRecognition();
+        });
+
+        // Load user data
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/auth/session/me');
+                if (response.ok) {
+                    currentUser = await response.json();
+                    document.getElementById('userName').textContent = currentUser.name || 'Buyer';
+                    document.getElementById('userAvatar').textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'B';
+                } else {
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                window.location.href = '/login';
+            }
+        }
+
+        // Load products
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products');
+                if (response.ok) {
+                    const result = await response.json();
+                    // Handle both old and new API response formats
+                    products = result.data || result;
+                    displayProducts(products);
+                } else {
+                    throw new Error('Failed to load products');
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+                document.getElementById('productsGrid').innerHTML = `
+                    <div class="loading">
+                        <p>Error loading products. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Display products
+        function displayProducts(productsToShow) {
+            const grid = document.getElementById('productsGrid');
+            
+            if (productsToShow.length === 0) {
+                grid.innerHTML = `
+                    <div class="loading">
+                        <p>No products found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = productsToShow.map(product => `
+                <div class="product-card">
+                    <img src="${product.imageUrl || product.image || '/images/product.png'}" alt="${product.productName || product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <div class="product-name">${product.productName || product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-meta">
+                            <div class="product-price">₹${product.price}</div>
+                            <div class="product-stock">${product.stock} in stock</div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-add-cart" onclick="addToCart('${product.id}')">
+                                <i class="ri-add-line"></i> Add to Cart
+                            </button>
+                            <button class="btn-wishlist ${wishlist.includes(product.id) ? 'active' : ''}" 
+                                    onclick="toggleWishlist('${product.id}')">
+                                <i class="ri-heart-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search products
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const priceRange = document.getElementById('priceFilter').value;
+
+            let filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                                    product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || product.category.toLowerCase() === category;
+                const matchesPrice = filterByPrice(product.price, priceRange);
+                
+                return matchesSearch && matchesCategory && matchesPrice;
+            });
+
+            displayProducts(filteredProducts);
+        }
+
+        // Filter by price
+        function filterByPrice(price, range) {
+            if (!range) return true;
+            
+            const [min, max] = range.split('-').map(Number);
+            if (range === '20+') {
+                return price >= 20;
+            }
+            return price >= min && price <= max;
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateStats();
+            
+            // Show success message
+            showNotification('Product added to cart!', 'success');
+        }
+
+        // Toggle wishlist
+        function toggleWishlist(productId) {
+            const index = wishlist.indexOf(productId);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+            } else {
+                wishlist.push(productId);
+            }
+
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateStats();
+            
+            // Refresh display to update wishlist buttons
+            displayProducts(products.filter(p => 
+                p.name.toLowerCase().includes(document.getElementById('searchInput').value.toLowerCase())
+            ));
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartItems').textContent = count;
+        }
+
+        // Update stats
+        function updateStats() {
+            const totalSpent = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            document.getElementById('totalSpent').textContent = `₹${totalSpent.toFixed(2)}`;
+            document.getElementById('wishlistItems').textContent = wishlist.length;
+        }
+
+        // Open cart
+        function openCart() {
+            window.location.href = '/cart';
+        }
+
+        // Toggle user menu
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.querySelector('.user-menu');
+            if (!userMenu.contains(event.target)) {
+                document.getElementById('userDropdown').classList.remove('show');
+            }
+        });
+
+        // Set view mode
+        function setViewMode(mode) {
+            const buttons = document.querySelectorAll('.view-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+            
+            const grid = document.getElementById('productsGrid');
+            if (mode === 'list') {
+                grid.style.gridTemplateColumns = '1fr';
+            } else {
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#4caf50' : '#2196f3'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+
+        // Auto-search on filter change
+        document.getElementById('categoryFilter').addEventListener('change', searchProducts);
+        document.getElementById('priceFilter').addEventListener('change', searchProducts);
+
+        // Chatbot functionality
+        function initializeChatbot() {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const welcomeMessage = `
+                <div class="welcome-message">
+                    <h4>🌾 Welcome to AGRO-SMART!</h4>
+                    <p>I'm your AI assistant. Ask me about our products, pricing, ordering, or how to join as a farmer.</p>
+                </div>
+            `;
+            messagesContainer.innerHTML = welcomeMessage;
+
+            setTimeout(() => {
+                addMessage('bot', 'Hello! I\'m here to help you with anything about AGRO-SMART. How can I assist you today?');
+            }, 500);
+        }
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            const button = document.getElementById('chatbotButton');
+            
+            if (window.classList.contains('active')) {
+                window.classList.remove('active');
+                button.classList.remove('pulse');
+            } else {
+                window.classList.add('active');
+                button.classList.add('pulse');
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function addMessage(sender, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? 'U' : 'AI';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage('bot', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('bot', 'Sorry, I\'m having trouble connecting right now. Please try again later.');
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        async function getAIResponse(message) {
+            try {
+                const response = await fetch('/api/chatbot/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: 'buyer-dashboard'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    return data.response;
+                } else {
+                    // Return the specific error message from the backend
+                    return data.message || 'Failed to get response';
+                }
+            } catch (error) {
+                console.error('Chatbot API error:', error);
+                return 'Network error. Please check your connection and try again.';
+            }
+        }
+
+        // Voice recognition functionality
+        function initializeVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    stopRecording();
+                };
+                
+                recognition.onend = function() {
+                    stopRecording();
+                };
+            } else {
+                document.getElementById('voiceBtn').style.display = 'none';
+            }
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) return;
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) return;
+            
+            isRecording = true;
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceIcon').className = 'ri-stop-line';
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+            
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceIcon').className = 'ri-mic-line';
+            recognition.stop();
+        }
+
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                try {
+                    const response = await fetch('/api/auth/logout', {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+                    if (response.ok) {
+                        window.location.href = '/login';
+                    } else {
+                        alert('Logout failed.');
+                    }
+                } catch (err) {
+                    alert('Logout failed.');
+                }
+            });
+        }
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html> 

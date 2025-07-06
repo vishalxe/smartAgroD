@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>AGRO-SMART - Fresh From Farm to Table</title>
+    <style>
+        /* Modern Homepage Styles */
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        .nav-links .login-btn {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .nav-links .login-btn:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: 2px solid var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Slider Section */
+        .slider-section {
+            padding: 5rem 0;
+            background: var(--light-bg);
+        }
+
+        .slider-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .slider-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .slider-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .slider-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            padding: 3rem;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .slide-content {
+            flex: 1;
+        }
+
+        .slide-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .slide-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .slide-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .slide-features li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        .slide-features li i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .slide-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .slide-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .slider-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .slider-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .slider-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .slide {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            background: #7cb342;
+        }
+
+        .chatbot-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 195, 74, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chatbot-title h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: var(--light-bg);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .message.user .message-avatar {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .message.bot .message-avatar {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.user .message-content {
+            background: var(--accent-color);
+            color: var(--white);
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot .message-content {
+            background: var(--white);
+            color: var(--text-dark);
+            border-bottom-left-radius: 5px;
+            box-shadow: var(--shadow);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--white);
+            border-radius: 15px;
+            border-bottom-left-radius: 5px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: var(--white);
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .chat-send-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .chat-send-btn:hover {
+            background: #7cb342;
+            transform: scale(1.1);
+        }
+
+        .chat-send-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .voice-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .voice-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .voice-btn.recording {
+            background: #f44336;
+            animation: pulse 1s infinite;
+        }
+
+        .lang-toggle-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            margin-left: 0.5rem;
+        }
+
+        .lang-toggle-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .lang-toggle-btn.active {
+            background: var(--primary-color);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            border: 1px solid #e1e5e9;
+            padding: 0.5rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -20px;
+            }
+
+            .message-content {
+                max-width: 80%;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+          <h2>AGRO-SMART</h2>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/login" class="login-btn">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+      <div class="floating-elements">
+        <div class="floating-element">🌾</div>
+        <div class="floating-element">🥕</div>
+        <div class="floating-element">🍎</div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Fresh From Farm to Table</h1>
+        <p class="hero-subtitle">Connecting consumers directly with farmers for the freshest, most sustainable produce</p>
+        <div class="hero-buttons">
+          <a href="/login" class="btn-primary">Explore Products</a>
+          <a href="/aboutus" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="slider-section">
+      <div class="slider-container">
+        <div class="slider-header">
+          <h2 class="slider-title">Discover Our Features</h2>
+          <p class="slider-subtitle">Learn about what makes AGRO-SMART the perfect platform for fresh produce</p>
+        </div>
+        
+        <div class="slider-wrapper">
+          <div class="slider-track" id="sliderTrack">
+            <div class="slide">
+              <div class="slide-content">
+                <h3 class="slide-title">For Buyers</h3>
+                <p class="slide-description">
+                  Experience the convenience of shopping fresh produce directly from local farmers. 
+                  Browse through a wide variety of organic products, add them to your cart, and enjoy 
+                  fast delivery to your doorstep.
+                </p>
+                <ul class="slide-features">
+                  <li><i class="ri-check-line"></i> Browse and search fresh products</li>
+                  <li><i class="ri-check-line"></i> Add to cart with quantity control</li>
+                  <li><i class="ri-check-line"></i> Secure checkout process</li>
+                  <li><i class="ri-check-line"></i> Fast and reliable delivery</li>
+                  <li><i class="ri-check-line"></i> Quality guaranteed products</li>
+                </ul>
+              </div>
+              <div class="slide-image">
+                <img src="/images/buy.jpg" alt="Shopping Experience">
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-content">
+                <h3 class="slide-title">For Farmers</h3>
+                <p class="slide-description">
+                  Join our platform to showcase your products directly to consumers. 
+                  Manage your inventory, set your own prices, and grow your business 
+                  with our farmer-friendly dashboard.
+                </p>
+                <ul class="slide-features">
+                  <li><i class="ri-check-line"></i> Easy product management</li>
+                  <li><i class="ri-check-line"></i> Set your own prices</li>
+                  <li><i class="ri-check-line"></i> Track your sales</li>
+                  <li><i class="ri-check-line"></i> Direct customer connection</li>
+                  <li><i class="ri-check-line"></i> Flexible inventory control</li>
+                </ul>
+              </div>
+              <div class="slide-image">
+                <img src="/images/crop.jpg" alt="Farmer Dashboard">
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-content">
+                <h3 class="slide-title">Quality & Sustainability</h3>
+                <p class="slide-description">
+                  We believe in promoting sustainable farming practices and ensuring 
+                  the highest quality products. Every item on our platform is carefully 
+                  selected and verified for freshness and quality.
+                </p>
+                <ul class="slide-features">
+                  <li><i class="ri-check-line"></i> 100% Organic products</li>
+                  <li><i class="ri-check-line"></i> Sustainable farming practices</li>
+                  <li><i class="ri-check-line"></i> Fresh from farm to table</li>
+                  <li><i class="ri-check-line"></i> Quality assurance</li>
+                  <li><i class="ri-check-line"></i> Support local farmers</li>
+                </ul>
+              </div>
+              <div class="slide-image">
+                <img src="/images/front.jpg" alt="Quality Products">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <button class="slider-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <i class="ri-arrow-left-line"></i> Previous
+          </button>
+          <button class="slider-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+
+        <div class="slider-dots" id="sliderDots">
+          <span class="dot active" onclick="goToSlide(0)"></span>
+          <span class="dot" onclick="goToSlide(1)"></span>
+          <span class="dot" onclick="goToSlide(2)"></span>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const totalSlides = slides.length;
+
+      function showSlide(n) {
+        const track = document.getElementById('sliderTrack');
+        track.style.transform = `translateX(-${n * 100}%)`;
+        
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === n);
+        });
+        
+        document.getElementById('prevBtn').disabled = n === 0;
+        document.getElementById('nextBtn').disabled = n === totalSlides - 1;
+        
+        currentSlide = n;
+      }
+
+      function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < totalSlides) {
+          showSlide(newSlide);
+        }
+      }
+
+      function goToSlide(n) {
+        showSlide(n);
+      }
+
+      setInterval(() => {
+        const nextSlide = (currentSlide + 1) % totalSlides;
+        showSlide(nextSlide);
+      }, 5000);
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+          navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+          navbar.style.backdropFilter = 'blur(10px)';
+        } else {
+          navbar.style.background = 'var(--white)';
+          navbar.style.backdropFilter = 'none';
+        }
+      });
+
+      showSlide(0);
+
+      // Initialize the page
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeSlider();
+        initializeCounters();
+      });
+
+      // Back button functionality
+      function goBack() {
+        if (document.referrer) {
+          window.history.back();
+        } else {
+          window.location.href = '/';
+        }
+      }
+    </script>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">
+            <i class="ri-customer-service-2-line"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="ri-robot-line"></i>
+                    <h3>AGRO-SMART Assistant</h3>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message will be added here -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="message-avatar">AI</div>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-row">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()" title="Voice Recognition (English) - Click to toggle language">
+                        <i class="ri-mic-line" id="voiceIcon"></i>
+                    </button>
+                    <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleVoiceLanguage()" title="Toggle Voice Language (EN/TA)">
+                        <i class="ri-translate-2"></i>
+                    </button>
+                    <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What products do you have?')">Products</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I place an order?')">Ordering</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What are your prices?')">Pricing</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I become a farmer?')">Join as Farmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chatbot functionality
+        let isRecording = false;
+        let recognition = null;
+        let currentVoiceLanguage = 'en-US'; // Default to English
+
+        // Initialize chatbot
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeChatbot();
+            initializeVoiceRecognition();
+            initializeLanguageToggle();
+        });
+
+        function initializeChatbot() {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const welcomeMessage = `
+                <div class="welcome-message">
+                    <h4>🌾 Welcome to AGRO-SMART!</h4>
+                    <p>I'm your AI assistant. Ask me about our products, pricing, ordering, or how to join as a farmer.</p>
+                    <p><strong>🌍 Language Support:</strong> I can help you in both English and Tamil (தமிழ்). Just type in your preferred language!</p>
+                    <p><strong>🎤 Voice Support:</strong> Click the mic button to speak. Use the language toggle for English/Tamil voice recognition.</p>
+                </div>
+            `;
+            messagesContainer.innerHTML = welcomeMessage;
+
+            setTimeout(() => {
+                addMessage('bot', 'Hello! I\'m here to help you with anything about AGRO-SMART. How can I assist you today? / வணக்கம்! நான் AGRO-SMART பற்றி உங்களுக்கு உதவ இங்கே இருக்கிறேன். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?');
+            }, 500);
+        }
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            const button = document.getElementById('chatbotButton');
+            
+            if (window.classList.contains('active')) {
+                window.classList.remove('active');
+                button.classList.remove('pulse');
+            } else {
+                window.classList.add('active');
+                button.classList.add('pulse');
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function addMessage(sender, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? 'U' : 'AI';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage('bot', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('bot', 'Sorry, I\'m having trouble connecting right now. Please try again later.');
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        async function getAIResponse(message) {
+            try {
+                const response = await fetch('/api/chatbot/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: 'homepage'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    return data.response;
+                } else {
+                    // Return the specific error message from the backend
+                    return data.message || 'Failed to get response';
+                }
+            } catch (error) {
+                console.error('Chatbot API error:', error);
+                return 'Network error. Please check your connection and try again.';
+            }
+        }
+
+        function initializeVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = currentVoiceLanguage;
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    stopRecording();
+                };
+                
+                recognition.onend = function() {
+                    stopRecording();
+                };
+            } else {
+                document.getElementById('voiceBtn').style.display = 'none';
+            }
+        }
+
+        function toggleVoiceLanguage() {
+            // Toggle between English and Tamil
+            currentVoiceLanguage = currentVoiceLanguage === 'en-US' ? 'ta-IN' : 'en-US';
+            
+            if (recognition) {
+                recognition.lang = currentVoiceLanguage;
+            }
+            
+            // Update the voice button tooltip
+            const voiceBtn = document.getElementById('voiceBtn');
+            const languageName = currentVoiceLanguage === 'en-US' ? 'English' : 'Tamil';
+            voiceBtn.title = `Voice Recognition (${languageName}) - Click to toggle language`;
+            
+            // Update the language toggle button appearance
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const languageCode = currentVoiceLanguage === 'en-US' ? 'EN' : 'TA';
+            langToggleBtn.title = `Current: ${languageName} - Click to switch to ${currentVoiceLanguage === 'en-US' ? 'Tamil' : 'English'}`;
+            
+            // Add active class to show current language
+            langToggleBtn.classList.toggle('active', currentVoiceLanguage === 'ta-IN');
+            
+            // Show a brief notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+            `;
+            notification.textContent = `Voice language set to: ${languageName}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 2000);
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) return;
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) return;
+            
+            isRecording = true;
+            const voiceBtn = document.getElementById('voiceBtn');
+            voiceBtn.classList.add('recording');
+            document.getElementById('voiceIcon').className = 'ri-stop-line';
+            
+            // Update recognition language before starting
+            recognition.lang = currentVoiceLanguage;
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+            
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceIcon').className = 'ri-mic-line';
+            recognition.stop();
+        }
+
+        function initializeLanguageToggle() {
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const languageName = currentVoiceLanguage === 'en-US' ? 'English' : 'Tamil';
+            langToggleBtn.title = `Current: ${languageName} - Click to switch to ${currentVoiceLanguage === 'en-US' ? 'Tamil' : 'English'}`;
+            langToggleBtn.classList.toggle('active', currentVoiceLanguage === 'ta-IN');
+        }
+    </script>
+  </body>
+</html>

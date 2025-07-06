@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - AGRO-SMART</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a27;
+            --secondary-color: #4a7c59;
+            --accent-color: #8bc34a;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header Section */
+        .header-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+        }
+
+        /* Stats Cards */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .actions-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .actions-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: var(--primary-color);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Products Section */
+        .products-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            border: 2px solid #e1e5e9;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .product-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-available {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .status-low {
+            background: #ff9800;
+            color: var(--white);
+        }
+
+        .status-out {
+            background: #f44336;
+            color: var(--white);
+        }
+
+        .product-content {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-details {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-btn {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .edit-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: var(--white);
+        }
+
+        .delete-btn:hover {
+            background: #d32f2f;
+        }
+
+        /* Add Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close {
+            color: var(--text-light);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Schemes Section */
+        .schemes-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .schemes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .schemes-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .scheme-card {
+            background: var(--light-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .scheme-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .scheme-name {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .scheme-status {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .scheme-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .scheme-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .scheme-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .scheme-detail-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .scheme-detail-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .scheme-benefits {
+            margin-bottom: 1.5rem;
+        }
+
+        .scheme-benefits h5 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .scheme-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-apply {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+
+        .btn-apply:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+        }
+
+        .btn-apply:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-details {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-details:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        /* Applications Section */
+        .applications-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .applications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .applications-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .application-card {
+            background: var(--light-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .application-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-under-review {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .application-details {
+            margin-bottom: 1rem;
+        }
+
+        .application-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .application-detail-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .application-detail-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 90, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0); }
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chatbot-title h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            max-height: 300px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .message.user .message-avatar {
+            background: var(--primary-color);
+        }
+
+        .message-content {
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .welcome-message {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .welcome-message p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-container input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .voice-btn, .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .voice-btn.recording {
+            background: #ff4444;
+            color: var(--white);
+            animation: pulse 1s infinite;
+        }
+
+        .lang-toggle-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+
+        .lang-toggle-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .lang-toggle-btn.active {
+            background: var(--primary-color);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .send-btn {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .voice-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-action-btn {
+            background: var(--light-bg);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+                <h2>AGRO-SMART</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/aboutus">About Us</a></li>
+                <li><a href="/blog">Blogs</a></li>
+                <li class="user-menu dropdown">
+                    <div class="user-avatar" id="farmerAvatar">F</div>
+                    <div class="dropdown-menu" id="farmerDropdownMenu">
+                        <a href="#" class="dropdown-item" id="logoutBtn"><i class="ri-logout-box-line"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="header-section">
+                <h1 class="welcome-message">Welcome back, Farmer!</h1>
+                <p class="subtitle">Manage your products and track your sales</p>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">🌾</div>
+                    <div class="stat-number" id="totalProducts">0</div>
+                    <div class="stat-label">Total Products</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number" id="totalSales">$0</div>
+                    <div class="stat-label">Total Sales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-number" id="totalOrders">0</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number" id="avgRating">0.0</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="actions-section">
+                <h3 class="actions-title">Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="openAddProductModal()">
+                        <i class="ri-add-line"></i>
+                        Add New Product
+                    </button>
+                    <button class="action-btn secondary" onclick="viewOrders()">
+                        <i class="ri-file-list-line"></i>
+                        View Orders
+                    </button>
+                    <button class="action-btn secondary" onclick="viewAnalytics()">
+                        <i class="ri-bar-chart-line"></i>
+                        Analytics
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">My Products</h2>
+                    <button class="add-product-btn" onclick="openAddProductModal()">
+                        <i class="ri-add-line"></i> Add Product
+                    </button>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Schemes Section -->
+            <div class="schemes-section">
+                <div class="schemes-header">
+                    <h2 class="schemes-title">Government Schemes</h2>
+                    <p>Apply for government assistance programs to support your farming</p>
+                </div>
+                <div class="schemes-grid" id="schemesGrid">
+                    <!-- Schemes will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div class="applications-section">
+                <div class="applications-header">
+                    <h2 class="applications-title">My Applications</h2>
+                    <p>Track your scheme applications and their status</p>
+                </div>
+                <div class="applications-grid" id="applicationsGrid">
+                    <!-- Applications will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Product</h3>
+                <span class="close" onclick="closeAddProductModal()">&times;</span>
+            </div>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Price (₹)</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock Quantity</label>
+                        <input type="number" id="stock" name="stock" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="herbs">Herbs</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit</label>
+                        <input type="text" id="unit" name="unit" placeholder="kg, dozen, etc." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="imageUrl">Image URL (optional)</label>
+                    <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="btn-submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scheme Application Modal -->
+    <div id="schemeApplicationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="schemeModalTitle">Apply for Scheme</h3>
+                <span class="close" onclick="closeSchemeApplicationModal()">&times;</span>
+            </div>
+            <form id="schemeApplicationForm">
+                <input type="hidden" id="schemeId" name="schemeId">
+                
+                <div class="form-group">
+                    <h4>Personal Details</h4>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="aadhaarNumber">Aadhaar Number</label>
+                        <input type="text" id="aadhaarNumber" name="aadhaarNumber" pattern="[0-9]{12}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankAccount">Bank Account Number</label>
+                        <input type="text" id="bankAccount" name="bankAccount" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <h4>Land Details</h4>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="landArea">Land Area (hectares)</label>
+                        <input type="number" id="landArea" name="landArea" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="landType">Land Type</label>
+                        <select id="landType" name="landType" required>
+                            <option value="">Select Land Type</option>
+                            <option value="owned">Owned</option>
+                            <option value="leased">Leased</option>
+                            <option value="rented">Rented</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cropsGrown">Crops Currently Grown</label>
+                    <textarea id="cropsGrown" name="cropsGrown" rows="2" placeholder="e.g., Wheat, Rice, Vegetables"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="irrigationType">Irrigation Type</label>
+                    <select id="irrigationType" name="irrigationType" required>
+                        <option value="">Select Irrigation Type</option>
+                        <option value="canal">Canal</option>
+                        <option value="well">Well</option>
+                        <option value="tube_well">Tube Well</option>
+                        <option value="rainfed">Rainfed</option>
+                        <option value="drip">Drip Irrigation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <h4>Documents</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">
+                        Please ensure you have the following documents ready:
+                    </p>
+                    <ul id="requiredDocuments" style="color: var(--text-light); font-size: 0.9rem; margin-left: 1rem;">
+                        <!-- Documents will be populated dynamically -->
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        I agree to the terms and conditions and confirm that all information provided is accurate
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">
+            <i class="ri-customer-service-2-line"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="ri-robot-line"></i>
+                    <h3>AGRO-SMART Assistant</h3>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be loaded here -->
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()" title="Voice Recognition (English) - Click to toggle language">
+                        <i class="ri-mic-line" id="voiceIcon"></i>
+                    </button>
+                    <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleVoiceLanguage()" title="Toggle Voice Language (EN/TA)">
+                        <i class="ri-translate-2"></i>
+                    </button>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="ri-send-plane-line"></i>
+                    </button>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I add a new product?')">Add Product</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('How do I manage my inventory?')">Manage Inventory</button>
+                    <button class="quick-action-btn" onclick="sendQuickMessage('What are the best practices for organic farming?')">Farming Tips</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global variables
+        let farmerProducts = [];
+        let schemes = [];
+        let applications = [];
+        let currentUser = null;
+        let isRecording = false;
+        let recognition = null;
+        let currentVoiceLanguage = 'en-US'; // Default to English
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadFarmerProducts();
+            loadSchemes();
+            loadApplications();
+            updateStats();
+            initializeChatbot();
+            initializeVoiceRecognition();
+        });
+
+        // Load user data
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/auth/session/me');
+                if (response.ok) {
+                    currentUser = await response.json();
+                    document.querySelector('.welcome-message').textContent = `Welcome back, ${currentUser.name || 'Farmer'}!`;
+                    document.getElementById('farmerAvatar').textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'F';
+                } else {
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                window.location.href = '/login';
+            }
+        }
+
+        // Load schemes
+        async function loadSchemes() {
+            try {
+                const response = await fetch('/api/schemes');
+                if (response.ok) {
+                    const data = await response.json();
+                    schemes = data.schemes || [];
+                    displaySchemes();
+                } else {
+                    throw new Error('Failed to load schemes');
+                }
+            } catch (error) {
+                console.error('Error loading schemes:', error);
+                // Load demo schemes
+                schemes = getDemoSchemes();
+                displaySchemes();
+            }
+        }
+
+        // Load applications
+        async function loadApplications() {
+            try {
+                const response = await fetch('/api/schemes/applications/my');
+                if (response.ok) {
+                    const data = await response.json();
+                    applications = data.applications || [];
+                    displayApplications();
+                } else {
+                    throw new Error('Failed to load applications');
+                }
+            } catch (error) {
+                console.error('Error loading applications:', error);
+                applications = [];
+                displayApplications();
+            }
+        }
+
+        // Display schemes
+        function displaySchemes() {
+            const grid = document.getElementById('schemesGrid');
+            if (!grid) return;
+
+            if (schemes.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-light);">No schemes available at the moment.</p>';
+                return;
+            }
+
+            grid.innerHTML = schemes.map(scheme => `
+                <div class="scheme-card">
+                    <div class="scheme-header">
+                        <div>
+                            <div class="scheme-name">${scheme.name}</div>
+                            <div class="scheme-description">${scheme.description}</div>
+                        </div>
+                        <span class="scheme-status">${scheme.status}</span>
+                    </div>
+                    
+                    <div class="scheme-details">
+                        <div class="scheme-detail">
+                            <span class="scheme-detail-label">Maximum Amount:</span>
+                            <span class="scheme-detail-value">₹${scheme.maxAmount.toLocaleString()}</span>
+                        </div>
+                        <div class="scheme-detail">
+                            <span class="scheme-detail-label">Duration:</span>
+                            <span class="scheme-detail-value">${scheme.duration}</span>
+                        </div>
+                    </div>
+
+                    <div class="scheme-benefits">
+                        <h5>Benefits:</h5>
+                        <ul class="benefits-list">
+                            ${scheme.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="scheme-actions">
+                        <button class="btn-apply" onclick="applyForScheme('${scheme.id}')" 
+                                ${scheme.status !== 'active' ? 'disabled' : ''}>
+                            ${scheme.status === 'active' ? 'Apply Now' : 'Not Available'}
+                        </button>
+                        <button class="btn-details" onclick="viewSchemeDetails('${scheme.id}')">
+                            Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Display applications
+        function displayApplications() {
+            const grid = document.getElementById('applicationsGrid');
+            if (!grid) return;
+
+            if (applications.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-light);">No applications submitted yet.</p>';
+                return;
+            }
+
+            grid.innerHTML = applications.map(app => `
+                <div class="application-card">
+                    <span class="application-status status-${app.status}">${app.status.toUpperCase()}</span>
+                    
+                    <div class="application-details">
+                        <div class="application-detail">
+                            <span class="application-detail-label">Scheme:</span>
+                            <span class="application-detail-value">${app.schemeName}</span>
+                        </div>
+                        <div class="application-detail">
+                            <span class="application-detail-label">Applied On:</span>
+                            <span class="application-detail-value">${new Date(app.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        <div class="application-detail">
+                            <span class="application-detail-label">Last Updated:</span>
+                            <span class="application-detail-value">${new Date(app.updatedAt).toLocaleDateString()}</span>
+                        </div>
+                        ${app.remarks ? `
+                        <div class="application-detail">
+                            <span class="application-detail-label">Remarks:</span>
+                            <span class="application-detail-value">${app.remarks}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Apply for scheme
+        function applyForScheme(schemeId) {
+            const scheme = schemes.find(s => s.id === schemeId);
+            if (!scheme) return;
+
+            document.getElementById('schemeModalTitle').textContent = `Apply for ${scheme.name}`;
+            document.getElementById('schemeId').value = schemeId;
+            
+            // Populate required documents
+            const documentsList = document.getElementById('requiredDocuments');
+            documentsList.innerHTML = scheme.documents.map(doc => `<li>${doc}</li>`).join('');
+            
+            // Pre-fill form with user data
+            if (currentUser) {
+                document.getElementById('fullName').value = currentUser.name || '';
+            }
+            
+            document.getElementById('schemeApplicationModal').style.display = 'block';
+        }
+
+        // View scheme details
+        function viewSchemeDetails(schemeId) {
+            const scheme = schemes.find(s => s.id === schemeId);
+            if (!scheme) return;
+
+            const details = `
+                <h3>${scheme.name}</h3>
+                <p><strong>Description:</strong> ${scheme.description}</p>
+                <p><strong>Maximum Amount:</strong> ₹${scheme.maxAmount.toLocaleString()}</p>
+                <p><strong>Duration:</strong> ${scheme.duration}</p>
+                
+                <h4>Eligibility:</h4>
+                <ul>${scheme.eligibility.map(item => `<li>${item}</li>`).join('')}</ul>
+                
+                <h4>Benefits:</h4>
+                <ul>${scheme.benefits.map(item => `<li>${item}</li>`).join('')}</ul>
+                
+                <h4>Required Documents:</h4>
+                <ul>${scheme.documents.map(item => `<li>${item}</li>`).join('')}</ul>
+            `;
+
+            alert(details); // Replace with a proper modal
+        }
+
+        // Close scheme application modal
+        function closeSchemeApplicationModal() {
+            document.getElementById('schemeApplicationModal').style.display = 'none';
+            document.getElementById('schemeApplicationForm').reset();
+        }
+
+        // Get demo schemes
+        function getDemoSchemes() {
+            return [
+                {
+                    id: 'scheme_1',
+                    name: 'PM-KISAN Scheme',
+                    description: 'Direct income support of ₹6,000 per year to eligible farmer families',
+                    eligibility: ['Small and marginal farmers', 'Landholding up to 2 hectares'],
+                    benefits: ['₹6,000 per year in 3 installments', 'Direct bank transfer', 'No middlemen'],
+                    documents: ['Aadhaar card', 'Land records', 'Bank account details'],
+                    status: 'active',
+                    maxAmount: 6000,
+                    duration: '1 year'
+                },
+                {
+                    id: 'scheme_2',
+                    name: 'PM Fasal Bima Yojana',
+                    description: 'Crop insurance scheme to protect farmers against natural calamities',
+                    eligibility: ['All farmers growing notified crops', 'Loanee and non-loanee farmers'],
+                    benefits: ['Comprehensive crop insurance', 'Low premium rates', 'Quick claim settlement'],
+                    documents: ['Land records', 'Crop details', 'Bank account details'],
+                    status: 'active',
+                    maxAmount: 50000,
+                    duration: 'Crop season'
+                },
+                {
+                    id: 'scheme_3',
+                    name: 'Kisan Credit Card',
+                    description: 'Easy credit facility for farmers to meet agricultural needs',
+                    eligibility: ['Individual farmers', 'Joint borrowers', 'Tenant farmers'],
+                    benefits: ['Flexible credit limit', 'Low interest rates', 'Easy repayment options'],
+                    documents: ['Land records', 'Income certificate', 'Bank statements'],
+                    status: 'active',
+                    maxAmount: 300000,
+                    duration: '5 years'
+                }
+            ];
+        }
+
+        // Load farmer's products
+        async function loadFarmerProducts() {
+            try {
+                const response = await fetch('/api/products/farmer');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    farmerProducts = data;
+                } else {
+                    console.error('Failed to load products:', data.message);
+                    loadDemoProducts();
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+                loadDemoProducts();
+            }
+            
+            displayFarmerProducts();
+        }
+
+        // Load demo products for farmer
+        function loadDemoProducts() {
+            farmerProducts = [
+                {
+                    id: "1",
+                    productName: "Fresh Organic Tomatoes",
+                    description: "Sweet and juicy organic tomatoes grown without pesticides.",
+                    price: 2.99,
+                    category: "vegetables",
+                    stock: 50,
+                    unit: "kg",
+                    imageUrl: "/images/tomatoes.jpg"
+                },
+                {
+                    id: "2",
+                    productName: "Organic Strawberries",
+                    description: "Sweet and fragrant organic strawberries. Rich in antioxidants.",
+                    price: 4.99,
+                    category: "fruits",
+                    stock: 30,
+                    unit: "kg",
+                    imageUrl: "/images/strawberry.jpg"
+                },
+                {
+                    id: "3",
+                    productName: "Fresh Farm Eggs",
+                    description: "Farm-fresh eggs from free-range chickens. Rich in protein.",
+                    price: 3.49,
+                    category: "dairy",
+                    stock: 5,
+                    unit: "dozen",
+                    imageUrl: "/images/eggs.jpg"
+                }
+            ];
+        }
+
+        // Display farmer's products
+        function displayFarmerProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            farmerProducts.forEach(product => {
+                const status = getStockStatus(product.stock);
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image" style="background-image: url('${product.imageUrl}')">
+                        <span class="product-status ${status.class}">${status.text}</span>
+                    </div>
+                    <div class="product-content">
+                        <h4 class="product-title">${product.productName}</h4>
+                        <p class="product-details">${product.description}</p>
+                        <div class="product-price">₹${product.price.toFixed(2)} per ${product.unit}</div>
+                        <div class="product-details">Stock: ${product.stock} ${product.unit}</div>
+                        <div class="product-actions">
+                            <button class="product-btn edit-btn" onclick="editProduct('${product.id}')">
+                                <i class="ri-edit-line"></i> Edit
+                            </button>
+                            <button class="product-btn delete-btn" onclick="deleteProduct('${product.id}')">
+                                <i class="ri-delete-bin-line"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Get stock status
+        function getStockStatus(stock) {
+            if (stock === 0) {
+                return { text: 'Out of Stock', class: 'status-out' };
+            } else if (stock <= 10) {
+                return { text: 'Low Stock', class: 'status-low' };
+            } else {
+                return { text: 'Available', class: 'status-available' };
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            const totalProducts = farmerProducts.length;
+            const totalSales = farmerProducts.reduce((sum, product) => sum + (product.price * (product.stock || 0)), 0);
+            const totalOrders = Math.floor(Math.random() * 50) + 10; // Demo data
+            const avgRating = (Math.random() * 2 + 3).toFixed(1); // Demo data
+
+            document.getElementById('totalProducts').textContent = totalProducts;
+            document.getElementById('totalSales').textContent = `₹${totalSales.toFixed(2)}`;
+            document.getElementById('totalOrders').textContent = totalOrders;
+            document.getElementById('avgRating').textContent = avgRating;
+        }
+
+        // Open add product modal
+        function openAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'block';
+        }
+
+        // Close add product modal
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+            document.getElementById('addProductForm').reset();
+        }
+
+        // Add product form submission
+        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const productData = {
+                productName: formData.get('productName'),
+                description: formData.get('description'),
+                price: parseFloat(formData.get('price')),
+                stock: parseInt(formData.get('stock')),
+                category: formData.get('category'),
+                unit: formData.get('unit'),
+                imageUrl: formData.get('imageUrl') || '/images/product.png'
+            };
+
+            try {
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(productData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showNotification('Product added successfully!');
+                    closeAddProductModal();
+                    loadFarmerProducts();
+                    updateStats();
+                } else {
+                    showNotification('Failed to add product: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error adding product:', error);
+                // For demo purposes, add to local array
+                const newProduct = {
+                    id: Date.now().toString(),
+                    ...productData
+                };
+                farmerProducts.push(newProduct);
+                displayFarmerProducts();
+                updateStats();
+                showNotification('Product added successfully! (Demo mode)');
+                closeAddProductModal();
+            }
+        });
+
+        // Edit product
+        function editProduct(productId) {
+            const product = farmerProducts.find(p => p.id === productId);
+            if (product) {
+                showNotification('Edit feature coming soon!');
+            }
+        }
+
+        // Delete product
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                farmerProducts = farmerProducts.filter(p => p.id !== productId);
+                displayFarmerProducts();
+                updateStats();
+                showNotification('Product deleted successfully!');
+            }
+        }
+
+        // View orders
+        function viewOrders() {
+            showNotification('Orders feature coming soon!');
+        }
+
+        // View analytics
+        function viewAnalytics() {
+            showNotification('Analytics feature coming soon!');
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--accent-color);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const addProductModal = document.getElementById('addProductModal');
+            const schemeApplicationModal = document.getElementById('schemeApplicationModal');
+            
+            if (event.target === addProductModal) {
+                closeAddProductModal();
+            }
+            if (event.target === schemeApplicationModal) {
+                closeSchemeApplicationModal();
+            }
+        }
+
+        // Handle scheme application form submission
+        document.getElementById('schemeApplicationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const schemeId = formData.get('schemeId');
+            
+            const applicationData = {
+                personalDetails: {
+                    fullName: formData.get('fullName'),
+                    aadhaarNumber: formData.get('aadhaarNumber'),
+                    phoneNumber: formData.get('phoneNumber'),
+                    bankAccount: formData.get('bankAccount'),
+                    address: formData.get('address')
+                },
+                landDetails: {
+                    landArea: parseFloat(formData.get('landArea')),
+                    landType: formData.get('landType'),
+                    cropsGrown: formData.get('cropsGrown'),
+                    irrigationType: formData.get('irrigationType')
+                }
+            };
+
+            try {
+                const response = await fetch(`/api/schemes/${schemeId}/apply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(applicationData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showNotification('Application submitted successfully!');
+                    closeSchemeApplicationModal();
+                    loadApplications(); // Refresh applications
+                } else {
+                    showNotification('Failed to submit application: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error submitting application:', error);
+                // For demo purposes, add to local array
+                const newApplication = {
+                    id: `app_${Date.now()}`,
+                    schemeId: schemeId,
+                    schemeName: schemes.find(s => s.id === schemeId)?.name || 'Unknown Scheme',
+                    status: 'pending',
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                applications.push(newApplication);
+                displayApplications();
+                showNotification('Application submitted successfully! (Demo mode)');
+                closeSchemeApplicationModal();
+            }
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Chatbot functionality
+        function initializeChatbot() {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const welcomeMessage = `
+                <div class="welcome-message">
+                    <h4>🌾 Welcome Farmer!</h4>
+                    <p>I'm your AI assistant. Ask me about managing products, inventory, farming tips, or platform features.</p>
+                    <p><strong>🌍 Language Support:</strong> I can help you in both English and Tamil (தமிழ்). Just type in your preferred language!</p>
+                </div>
+            `;
+            messagesContainer.innerHTML = welcomeMessage;
+
+            setTimeout(() => {
+                addMessage('bot', 'Hello! I\'m here to help you manage your farm business. How can I assist you today? / வணக்கம்! நான் உங்கள் விவசாய வணிகத்தை நிர்வகிக்க உதவ இங்கே இருக்கிறேன். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?');
+            }, 500);
+        }
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            const button = document.getElementById('chatbotButton');
+            
+            if (window.classList.contains('active')) {
+                window.classList.remove('active');
+                button.classList.remove('pulse');
+            } else {
+                window.classList.add('active');
+                button.classList.add('pulse');
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function addMessage(sender, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? 'U' : 'AI';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage('bot', response);
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('bot', 'Sorry, I\'m having trouble connecting right now. Please try again later.');
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        async function getAIResponse(message) {
+            try {
+                const response = await fetch('/api/chatbot/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        context: 'farmer-dashboard'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    return data.response;
+                } else {
+                    // Return the specific error message from the backend
+                    return data.message || 'Failed to get response';
+                }
+            } catch (error) {
+                console.error('Chatbot API error:', error);
+                return 'Network error. Please check your connection and try again.';
+            }
+        }
+
+        // Voice recognition functionality
+        function initializeVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = currentVoiceLanguage;
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    stopRecording();
+                };
+                
+                recognition.onend = function() {
+                    stopRecording();
+                };
+            } else {
+                document.getElementById('voiceBtn').style.display = 'none';
+            }
+        }
+
+        function toggleVoiceLanguage() {
+            // Toggle between English and Tamil
+            currentVoiceLanguage = currentVoiceLanguage === 'en-US' ? 'ta-IN' : 'en-US';
+            
+            if (recognition) {
+                recognition.lang = currentVoiceLanguage;
+            }
+            
+            // Update the voice button tooltip
+            const voiceBtn = document.getElementById('voiceBtn');
+            const languageName = currentVoiceLanguage === 'en-US' ? 'English' : 'Tamil';
+            voiceBtn.title = `Voice Recognition (${languageName}) - Click to toggle language`;
+            
+            // Update the language toggle button appearance
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            if (langToggleBtn) {
+                const languageCode = currentVoiceLanguage === 'en-US' ? 'EN' : 'TA';
+                langToggleBtn.title = `Current: ${languageName} - Click to switch to ${currentVoiceLanguage === 'en-US' ? 'Tamil' : 'English'}`;
+                langToggleBtn.classList.toggle('active', currentVoiceLanguage === 'ta-IN');
+            }
+            
+            // Show a brief notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+            `;
+            notification.textContent = `Voice language set to: ${languageName}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 2000);
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) return;
+            
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) return;
+            
+            isRecording = true;
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceIcon').className = 'ri-stop-line';
+            
+            // Update recognition language before starting
+            recognition.lang = currentVoiceLanguage;
+            recognition.start();
+        }
+
+        function stopRecording() {
+            if (!recognition) return;
+            
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceIcon').className = 'ri-mic-line';
+            recognition.stop();
+        }
+
+        // Dropdown menu logic
+        const farmerAvatar = document.getElementById('farmerAvatar');
+        const farmerDropdownMenu = document.getElementById('farmerDropdownMenu');
+        if (farmerAvatar && farmerDropdownMenu) {
+            farmerAvatar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                farmerDropdownMenu.classList.toggle('show');
+            });
+            document.addEventListener('click', function() {
+                farmerDropdownMenu.classList.remove('show');
+            });
+        }
+        // Logout logic
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                try {
+                    const response = await fetch('/api/auth/logout', {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+                    if (response.ok) {
+                        window.location.href = '/login';
+                    } else {
+                        alert('Logout failed.');
+                    }
+                } catch (err) {
+                    alert('Logout failed.');
+                }
+            });
+        }
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html> 

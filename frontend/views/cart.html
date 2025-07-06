@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .cart-header {
+            background-color: #343a40;
+            padding: 20px;
+            color: white;
+        }
+
+        .cart-header h1 {
+            font-size: 2rem;
+        }
+
+        .cart-item-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+
+        .btn-outline-secondary {
+            font-size: 0.9rem;
+        }
+
+        .cart-item-total {
+            font-weight: bold;
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .checkout-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-btn {
+            font-size: 1.1rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="cart-header text-center">
+        <h1><i class="fas fa-shopping-cart"></i> Shopping Cart</h1>
+    </header>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()" title="Go Back">
+        <i class="ri-arrow-left-line"></i>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container mt-5">
+        <div id="cartItems">
+            <!-- Cart items will be inserted here -->
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="checkout-section mt-5">
+            <h4>Total: ₹<span id="cartTotal">0.00</span></h4>
+            <button class="btn checkout-btn mt-3 w-100" onclick="checkout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || {}; // Get cart from localStorage or empty object
+
+        // Function to display cart items on the Cart page
+        function displayCartItems() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = ''; // Clear previous cart items
+            let total = 0;
+
+            if (Object.keys(cart).length === 0) {
+                cartItemsDiv.innerHTML = '<p class="empty-cart-message">Your cart is empty. Start shopping!</p>';
+                return;
+            }
+
+            for (const productId in cart) {
+                const product = cart[productId];
+                const itemTotal = product.price * product.quantity;
+                total += itemTotal;
+
+                const cartItemHtml = `
+                    <div class="row mb-4 p-3 bg-light rounded shadow-sm">
+                        <div class="col-md-2">
+                            <img src="${product.imageUrl}" class="img-fluid cart-item-image rounded" alt="${product.name}">
+                        </div>
+                        <div class="col-md-4 d-flex flex-column justify-content-center">
+                            <h5>${product.name}</h5>
+                            <p class="text-muted">Price: ₹${product.price.toFixed(2)}</p>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column justify-content-center">
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="decreaseQuantity('${productId}')">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="mx-3">${product.quantity}</span>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="increaseQuantity('${productId}')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column justify-content-center text-end">
+                            <p class="cart-item-total">₹${itemTotal.toFixed(2)}</p>
+                            <button class="btn btn-danger btn-sm" onclick="removeFromCart('${productId}')">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+                cartItemsDiv.insertAdjacentHTML('beforeend', cartItemHtml);
+            }
+
+            // Update the total price
+            document.getElementById('cartTotal').textContent = total.toFixed(2);
+        }
+
+        // Update cart in localStorage
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+
+        // Increase quantity in cart
+        function increaseQuantity(productId) {
+            cart[productId].quantity++;
+            updateCart();
+        }
+
+        // Decrease quantity in cart
+        function decreaseQuantity(productId) {
+            if (cart[productId].quantity > 1) {
+                cart[productId].quantity--;
+            } else {
+                delete cart[productId]; // Remove from cart if quantity is 0
+            }
+            updateCart();
+        }
+
+        // Remove an item from the cart
+        function removeFromCart(productId) {
+            delete cart[productId];
+            updateCart();
+        }
+
+        async function checkout() {
+            const totalAmount = parseFloat(document.getElementById('cartTotal').textContent);
+            
+            if (totalAmount <= 0) {
+                alert('Your cart is empty. Please add some products before checkout.');
+                return;
+            }
+
+            // Check minimum amount (₹42 = approximately $0.50)
+            if (totalAmount < 42) {
+                alert(`Minimum order amount is ₹42 (approximately $0.50). Your order total is ₹${totalAmount.toFixed(2)}. Please add more items to your cart.`);
+                return;
+            }
+
+            // Convert cart object to array format for the API
+            const cartItems = Object.values(cart).map(item => ({
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                image: item.imageUrl,
+                description: `Fresh ${item.name} from local farmers`
+            }));
+
+            try {
+                const response = await fetch('/api/payments/create-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        amount: totalAmount,
+                        items: cartItems,
+                        customerEmail: 'customer@example.com', // You can get this from user session
+                        orderId: `order_${Date.now()}`
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to create checkout session');
+                }
+                
+                if (data.success && data.url) {
+                    // Redirect to Stripe checkout
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.message || 'Failed to create checkout session');
+                }
+            } catch (error) {
+                console.error('Error creating checkout session:', error);
+                alert(`Error processing payment: ${error.message}`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', displayCartItems);
+
+        // Back button functionality
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
