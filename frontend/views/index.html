@@ -51,18 +51,20 @@
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            /* max-width: 1200px; */   /* Remove or comment out this line */
+            margin: 0;                 /* Remove auto-centering */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding-left: 1rem;        /* Add a little padding if you want some space from the edge */
+            padding-right: 2rem;
         }
 
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin-left: 0;
         }
 
         .nav-logo img {
@@ -738,10 +740,10 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-logo">
-          <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
-          <h2>AGRO-SMART</h2>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.jpg" alt="AGRO-SMART Logo">
+                <h2>AGRO-SMART</h2>
         </div>
         <ul class="nav-links">
           <li><a href="/">Home</a></li>

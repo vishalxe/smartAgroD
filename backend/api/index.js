@@ -1,5 +1,5 @@
 const express = require('express');
-const serverless = require('serverless-http');
+const serverlessExpress = require('@vendia/serverless-express');
 const path = require('path');
 
 const app = express();
@@ -21,4 +21,4 @@ app.get('*', (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);
+module.exports.handler = serverlessExpress({ app });
