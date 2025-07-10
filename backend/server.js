@@ -231,18 +231,3 @@ app.use((req, res) => {
 
 // Export the app for Vercel serverless deployment
 module.exports = app;
-
-// Only start the server if this file is run directly (not imported)
-if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`🚀 AGRO-SMART Server running on http://localhost:${PORT}`);
-        console.log(`📁 Environment: ${process.env.NODE_ENV || 'development'}`);
-        console.log(`💾 Storage: Local JSON Files`);
-        console.log(`🔐 Auth: ${firebaseAuth.getAuthStatus().initialized ? 'Firebase' : 'Mock Mode'}`);
-        console.log(`💳 Stripe: ${process.env.STRIPE_SECRET_KEY ? 'Configured' : 'Not Configured'}`);
-        console.log(`👥 User Roles: Buyer, Farmer, Admin`);
-        console.log(`🎯 Dashboards: /buyer-dashboard, /farmer-dashboard, /admin`);
-        console.log(`🌾 Schemes: /api/schemes`);
-        console.log(`💳 Payments: /api/payments`);
-    });
-}
